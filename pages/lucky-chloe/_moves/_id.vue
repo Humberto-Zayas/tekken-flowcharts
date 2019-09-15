@@ -39,6 +39,9 @@
 </template>
 
 <script>
+import axios from 'axios'
+const apiUrl = process.env.API_URL || 'http://localhost:1339'
+
 export default {
   data() {
     return {
@@ -105,6 +108,12 @@ export default {
           currentMove.id.toLowerCase().replace(/ /g, '-') ===
           this.id.toLowerCase()
       )
+    }
+  },
+  async asyncData({ params, error }) {
+    const flowcharts = await axios.get(`${apiUrl}/flowcharts?Name=Left Point`)
+    return {
+      flowcharts: flowcharts.data
     }
   },
   methods: {
