@@ -20,9 +20,6 @@
       <br />
       <b-row align-v="start">
         <b-col>
-          <!-- <div v-if="this.$route.query.keys(obj).length > 0">
-            <h1>{{ this.$route.query.move }}</h1>
-          </div> -->
           <b-list-group>
             <b-list-group-item
               class="d-flex justify-content-between align-items-center"
@@ -92,16 +89,6 @@ export default {
     }
   },
   computed: {
-    // currentCharacter() {
-    //   return this.xcharacters.find(
-    //     (currentCharacter) =>
-    //       currentCharacter.id.toLowerCase().replace(/ /g, '-') ===
-    //       this.id.toLowerCase()
-    //   )
-    // }
-    currentCharacter() {
-      return this.xcharacters[1]
-    },
     currentMove() {
       return this.moves.find(
         (currentMove) =>
@@ -111,7 +98,8 @@ export default {
     }
   },
   async asyncData({ params, error }) {
-    const flowcharts = await axios.get(`${apiUrl}/flowcharts?Name=Left Point`)
+    // const liveMove = currentMove
+    const flowcharts = await axios.get(`${apiUrl}/flowcharts`)
     return {
       flowcharts: flowcharts.data
     }
