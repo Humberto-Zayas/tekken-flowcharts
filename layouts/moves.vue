@@ -2,6 +2,9 @@
   <div>
     <Navbar />
     <nuxt />
+    <!-- <b-container>
+      <FlowChartForm />
+    </b-container> -->
   </div>
 </template>
 
@@ -57,6 +60,7 @@ html {
 
 <script>
 import Navbar from '~/components/Navbar.vue'
+// import FlowChartForm from '~/components/FlowChartForm.vue'
 
 export default {
   components: {
