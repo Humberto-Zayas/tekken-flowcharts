@@ -42,6 +42,21 @@ const apiUrl = process.env.API_URL || 'http://localhost:1339'
 export default {
   data() {
     return {
+      form: {
+        email: '',
+        name: '',
+        food: null,
+        checked: []
+      },
+      foods: [
+        { text: 'Select One', value: null },
+        'Carrots',
+        'Beans',
+        'Tomatoes',
+        'Corn'
+      ],
+      show: true,
+
       items: [
         {
           text: 'Admin',
@@ -107,6 +122,23 @@ export default {
   methods: {
     pushMove(event) {
       this.$router.push('/' + event.target.value)
+    },
+    onSubmit(evt) {
+      evt.preventDefault()
+      alert(JSON.stringify(this.form))
+    },
+    onReset(evt) {
+      evt.preventDefault()
+      // Reset our form values
+      this.form.email = ''
+      this.form.name = ''
+      this.form.food = null
+      this.form.checked = []
+      // Trick to reset/clear native browser form validation state
+      this.show = false
+      this.$nextTick(() => {
+        this.show = true
+      })
     }
   }
 }
