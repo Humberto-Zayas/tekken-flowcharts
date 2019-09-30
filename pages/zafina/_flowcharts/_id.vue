@@ -5,14 +5,13 @@
       <br />
       <b-row>
         <b-col class="">
-          <span
-            style="cursor: pointer; padding: 0 10px;"
-            @click="$router.go(-1)"
-            >&lsaquo;</span
-          >
           <h1>
+            <nuxt-link style="cursor: pointer; padding: 0 10px;" to="/zafina"
+              >&lsaquo;</nuxt-link
+            >
             <!-- {{ xcharacters[1].id }} -->
-            {{ character }} / {{ currentMove.id }}
+            {{ currentCharacter }} / Flowchart ID:
+            {{ this.$route.params.id }}
           </h1>
         </b-col>
       </b-row>
@@ -21,10 +20,18 @@
       <b-row align-v="start">
         <b-col>
           <b-list-group>
+            <h3>Charts</h3>
             <b-list-group-item
               class="d-flex justify-content-between align-items-center"
             >
-              {{ currentMove.id }}
+              {{ currentFlowChart.Name }}
+
+              <b-badge variant="primary" pill>14</b-badge>
+            </b-list-group-item>
+            <b-list-group-item
+              class="d-flex justify-content-between align-items-center"
+            >
+              {{ currentFlowChart.Content }}
 
               <b-badge variant="primary" pill>14</b-badge>
             </b-list-group-item>
@@ -32,22 +39,7 @@
         </b-col>
       </b-row>
       <div>
-        <b-form v-if="show" @submit="onSubmit" @reset="onReset">
-          <!-- <b-form-group
-            id="input-group-1"
-            label="Email address:"
-            label-for="input-1"
-            description="We'll never share your email with anyone else."
-          >
-            <b-form-input
-              id="input-1"
-              v-model="form.email"
-              type="email"
-              required
-              placeholder="Enter email"
-            ></b-form-input>
-          </b-form-group> -->
-
+        <b-form v-if="show" @submit="addFlowChart" @reset="onReset">
           <b-form-group
             id="input-group-2"
             label="Move Name:"
@@ -62,28 +54,13 @@
           </b-form-group>
           <b-form-textarea
             id="textarea"
-            v-model="form.text"
+            v-model="form.content"
             placeholder="Enter something..."
             rows="3"
             max-rows="6"
           ></b-form-textarea>
 
-          <!-- <b-form-group id="input-group-3" label="Food:" label-for="input-3">
-            <b-form-select
-              id="input-3"
-              v-model="form.food"
-              :options="moves"
-              required
-            ></b-form-select>
-          </b-form-group> -->
-
-          <!-- <b-form-group id="input-group-4">
-            <b-form-checkbox-group id="checkboxes-4" v-model="form.checked">
-              <b-form-checkbox value="me">Check me out</b-form-checkbox>
-              <b-form-checkbox value="that">Check that out</b-form-checkbox>
-            </b-form-checkbox-group>
-          </b-form-group> -->
-
+          <br />
           <b-button type="submit" variant="primary">Submit</b-button>
           <b-button type="reset" variant="danger">Reset</b-button>
         </b-form>
@@ -98,47 +75,23 @@
 <script>
 import axios from 'axios'
 const apiUrl = process.env.API_URL || 'http://localhost:1339'
-
 export default {
-  layout: 'moves',
   data() {
     return {
+      flowcharts: null,
       form: {
         name: '',
-        text: ''
+        content: ''
 
         // food: null,
         // checked: []
       },
-      foods: [
-        { text: 'Select One', value: null },
-        'Carrots',
-        'Beans',
-        'Tomatoes',
-        'Corn'
-      ],
       show: true,
-      items: [
-        {
-          text: 'Admin',
-          href: '#'
-        },
-        {
-          text: 'Characters',
-          href: '/characters'
-        }
-        // {
-        //   text:
-        //     this.$route.params.id.charAt(0).toUpperCase() +
-        //     this.$route.params.id.substring(1),
-        //   active: true
-        // }
-      ],
       id: this.$route.params.id,
-      character: 'Lucky Chloe',
+
       moves: [
         {
-          id: 'Left Point',
+          id: 'Move One',
           notation: '1',
           level: 'High',
           frames: '10',
@@ -146,7 +99,7 @@ export default {
           onHit: '+8'
         },
         {
-          id: 'Left Point to C Uprock Hit',
+          id: 'Move Two',
           notation: '1, 2, 1',
           level: 'High, Mid, Mid',
           frames: '10',
@@ -154,7 +107,7 @@ export default {
           onHit: '+8'
         },
         {
-          id: 'Left Point to C Uprock Clap',
+          id: 'Move Three',
           notation: '1, 2, 2',
           level: 'High, Mid, Mid',
           frames: '10',
@@ -165,12 +118,31 @@ export default {
     }
   },
   computed: {
-    currentMove() {
-      return this.moves.find(
-        (currentMove) =>
-          currentMove.id.toLowerCase().replace(/ /g, '-') ===
-          this.id.toLowerCase()
-      )
+    currentCharacter() {
+      return 'Zafina'
+    },
+    matchingFlowCharts() {
+      const flowcharts = this.flowcharts
+
+      const newarray = flowcharts.filter(function(chart) {
+        return (
+          chart.Name.toLowerCase().replace(/ /g, '-') ===
+          this.$route.params.id.toLowerCase().replace(/ /g, '-')
+        )
+      })
+      return newarray
+      // return flowcharts[6].Name.toLowerCase().replace(/ /g, '-') === this.id
+    },
+    // currentMove() {
+    //   return this.moves.find(
+    //     (currentMove) =>
+    //       currentMove.id.toLowerCase().replace(/ /g, '-') ===
+    //       this.id.toLowerCase()
+    //   )
+    // },
+    currentFlowChart() {
+      // eslint-disable-next-line prettier/prettier
+      return this.flowcharts.find(chart => chart.id === parseInt(this.id))
     }
   },
   async asyncData({ params, error }) {
@@ -197,6 +169,26 @@ export default {
       this.$nextTick(() => {
         this.show = true
       })
+    },
+    addFlowChart(evt) {
+      evt.preventDefault()
+      axios
+        .post(`${apiUrl}/flowcharts/`, {
+          Name: this.form.name,
+          Content: this.form.content
+        })
+        .then((response) => {
+          // Handle success.
+          alert('Success')
+          // console.log('Well done!')
+          // console.log('User profile', response.data.user)
+          // console.log('User token', response.data.jwt)
+        })
+        .catch((error) => {
+          // Handle error.
+          alert('Error: ', error)
+          // console.log('An error occurred:', error)
+        })
     }
   }
 }
