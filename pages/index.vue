@@ -11,18 +11,12 @@
       <b-col>
         <b-list-group>
           <b-list-group-item
-            v-for="character in xcharacters"
-            :key="character"
+            v-for="(character, i) in characters"
+            :key="i"
             class="d-flex justify-content-between align-items-center"
           >
-            <!-- <nuxt-link
-              :to="
-                '/characters/' + character.id.toLowerCase().replace(/ /g, '-')
-              "
-              >{{ character.id }}</nuxt-link
-            > -->
-            <nuxt-link :to="character.id.toLowerCase().replace(/ /g, '-')">
-              {{ character.id }}</nuxt-link
+            <nuxt-link :to="character.toLowerCase().replace(/ /g, '-')">
+              {{ character }}</nuxt-link
             >
 
             <b-badge variant="primary" pill>14</b-badge>
