@@ -11,9 +11,28 @@
           </h1>
         </b-col>
       </b-row>
+      <b-row>
+        <b-col v-for="n in x" :key="n" class="flowchart-col" cols="2">
+          <template>
+            <div>
+              <b-form-select
+                v-model="selected[n]"
+                :options="xcharacters[0].moves"
+                text-field="Move"
+              >
+              </b-form-select>
+              <div class="mt-3">
+                Selected: <strong>{{ selected[n] }}</strong>
+              </div>
+            </div>
+          </template>
+        </b-col>
+        <span class="addFlowChart" @click="x += 1">&#43;</span>
+      </b-row>
 
       <br />
-      <b-row align-v="start">
+      <!-- List of all moves as a list group -->
+      <!-- <b-row align-v="start">
         <b-col>
           <b-list-group>
             <b-list-group-item
@@ -30,7 +49,22 @@
             </b-list-group-item>
           </b-list-group>
         </b-col>
-      </b-row>
+      </b-row> -->
+      <!-- List of all moves as a list group -->
+      <b-table
+        sticky-header="60vh"
+        bordered
+        striped
+        hover
+        :items="xcharacters[0].moves"
+        :fields="fields"
+      >
+        <template v-slot:cell(Level)="data">
+          <nuxt-link to="/">{{ data.value }} hee</nuxt-link>
+        </template>
+      </b-table>
+
+      <!-- Input Form for Strapi No Auth -->
       <div>
         <b-form v-if="show" @submit="addFlowChart" @reset="onReset">
           <b-form-group
@@ -61,9 +95,67 @@
           <pre class="m-0">{{ form }}</pre>
         </b-card>
       </div>
+      <!-- Input Form for Strapi No Auth End -->
     </b-container>
   </div>
 </template>
+
+<style scoped>
+.addFlowChart {
+  height: 30px;
+  width: 30px;
+  top: 25px;
+  position: relative;
+  text-align: center;
+  background: #29d129;
+  color: white;
+  border-radius: 100%;
+  padding: 0;
+  font-weight: bolder;
+  cursor: pointer;
+  font-size: 22px;
+  line-height: 27px;
+  box-shadow: 0 4px 8px -5px black;
+  transition: transform 0.2s;
+}
+
+.addFlowChart:hover {
+  transform: scale(1.1);
+}
+
+.flowchart-col {
+  padding: 20px 30px;
+  position: relative;
+}
+
+.flowchart-col:after {
+  top: 37px;
+  width: 31px;
+  height: 6px;
+  content: '';
+  background: black;
+  position: absolute;
+  right: 0px;
+}
+.flowchart-col:not(:first-child):before {
+  top: 37px;
+  width: 31px;
+  height: 6px;
+  content: '';
+  background: black;
+  position: absolute;
+  left: 0px;
+}
+.flowchart-col:last-child:after {
+  top: 37px;
+  width: 0 !important;
+  height: 0;
+  content: '';
+  background: black;
+  position: absolute;
+  right: 0px;
+}
+</style>
 
 <script>
 import axios from 'axios'
@@ -71,6 +163,8 @@ const apiUrl = process.env.API_URL || 'http://localhost:1339'
 export default {
   data() {
     return {
+      x: 1,
+      selected: [],
       form: {
         name: '',
         content: ''
@@ -80,6 +174,48 @@ export default {
       },
       show: true,
       id: this.$route.params.id,
+      fields: [
+        {
+          key: 'Move',
+          sortable: true
+        },
+        {
+          key: 'Level',
+          sortable: false
+        },
+        {
+          key: 'Damage',
+          // label: 'Person age',
+          sortable: true
+          // Variant applies to the whole column, including the header and footer
+          // variant: 'danger'
+        },
+        {
+          key: 'Startup',
+          label: 'Frames',
+          sortable: true
+          // Variant applies to the whole column, including the header and footer
+          // variant: 'danger'
+        },
+        {
+          key: 'Block',
+          label: 'On Block',
+          sortable: false
+        },
+        {
+          key: 'Hit',
+          label: 'On Hit',
+          sortable: true
+        },
+        {
+          key: 'Counter Hit',
+          sortable: true
+        },
+        {
+          key: 'Notes',
+          sortable: false
+        }
+      ],
       xcharacters: [
         {
           id: 'Zafina',
