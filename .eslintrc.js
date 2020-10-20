@@ -17,6 +17,9 @@ module.exports = {
   plugins: [
     'prettier'
   ],
+  dev: {
+    useEslint: false
+  },
   // add your custom rules here
   rules: {
   }
