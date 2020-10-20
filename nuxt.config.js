@@ -21,6 +21,7 @@ export default {
       }
     ]
   },
+  target: 'static',
   /*
    ** Customize the progress-bar color
    */
@@ -33,10 +34,6 @@ export default {
    ** Plugins to load before mounting the App
    */
   plugins: [],
-  server: {
-    port: 3001, // default: 3000
-    host: '0.0.0.0' // default: localhost
-  },
   /*
    ** Nuxt.js dev-modules
    */
