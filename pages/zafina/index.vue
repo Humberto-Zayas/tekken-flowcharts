@@ -3,108 +3,30 @@
     <!-- <b-breadcrumb :items="items"></b-breadcrumb> -->
     <b-container class="bv-example-row">
       <br />
-      <b-row>
-        <b-col class="">
-          <h1>
-            <!-- {{ xcharacters[1].id }} -->
-            {{ currentCharacter.id }}
-          </h1>
-        </b-col>
-      </b-row>
-      <b-row>
-        <b-col v-for="n in x" :key="n" class="flowchart-col" cols="2">
-          <template>
-            <div>
-              <b-form-select
-                v-model="selected[n]"
-                :options="xcharacters[0].moves"
-                text-field="Move"
-              >
-              </b-form-select>
-              <div class="mt-3">
-                Selected: <strong>{{ selected[n] }}</strong>
-              </div>
-            </div>
-          </template>
-        </b-col>
-        <span class="addFlowChart" @click="x += 1">&#43;</span>
-      </b-row>
+      <div>
+        <b-card
+        no-body
+        style="max-width: 20rem;"
+        img-src="https://steamcdn-a.akamaihd.net/steam/apps/1114561/ss_15a1dbff627abe5938f304b4731e9f7c04921708.600x338.jpg"
+        img-alt="Image"
+        img-top
+        >
+
+        <b-list-group flush>
+        <b-list-group-item>Cras justo odio</b-list-group-item>
+        <b-list-group-item>Dapibus ac facilisis in</b-list-group-item>
+        <b-list-group-item>Vestibulum at eros</b-list-group-item>
+        </b-list-group>
+        <b-card-body>
+          <b-card-title>View Zafina Frame Data and Move Properties</b-card-title>
+          <b-button to="zafina/frame-data" variant="primary">Zafina Frame Data</b-button>
+        </b-card-body>
+        </b-card>
+      </div>
 
       <br />
       <!-- List of all moves as a list group -->
-      <!-- <b-row align-v="start">
-        <b-col>
-          <b-list-group>
-            <b-list-group-item
-              v-for="move in currentCharacter.moves"
-              :key="move.Move"
-              class="d-flex justify-content-between align-items-center"
-            >
-              <nuxt-link
-                :to="'/zafina/' + move.Move.toLowerCase().replace(/ /g, '-')"
-                >{{ move.Move }}</nuxt-link
-              >
-
-              <b-badge variant="primary" pill>14</b-badge>
-            </b-list-group-item>
-          </b-list-group>
-        </b-col>
-      </b-row> -->
-      <!-- List of all moves as a list group -->
       
-      <b-table
-        sticky-header="60vh"
-        bordered
-        striped
-        hover
-        :items="xcharacters[0].moves"
-        :fields="fields"
-      >
-        <!-- <template v-slot:cell(Level)="data">
-          <nuxt-link to="/">{{ data.value }} hee</nuxt-link>
-        </template> -->
-        <template v-slot:cell(actions)="row">
-        <b-button size="sm" @click="info(row.item, row.index, $event.target)" class="mr-1">
-          Info modal
-        </b-button>
-        <b-button size="sm" @click="row.toggleDetails">
-          {{ row.detailsShowing ? 'Hide' : 'Show' }} Details
-        </b-button>
-      </template>
-      </b-table>
-
-      <!-- Input Form for Strapi No Auth -->
-      <div>
-        <b-form v-if="show" @submit="addFlowChart" @reset="onReset">
-          <b-form-group
-            id="input-group-2"
-            label="Move Name:"
-            label-for="input-2"
-          >
-            <b-form-input
-              id="input-2"
-              v-model="form.name"
-              required
-              placeholder="Move Name"
-            ></b-form-input>
-          </b-form-group>
-          <b-form-textarea
-            id="textarea"
-            v-model="form.content"
-            placeholder="Enter something..."
-            rows="3"
-            max-rows="6"
-          ></b-form-textarea>
-
-          <br />
-          <b-button type="submit" variant="primary">Submit</b-button>
-          <b-button type="reset" variant="danger">Reset</b-button>
-        </b-form>
-        <b-card class="mt-3" header="Form Data Result">
-          <pre class="m-0">{{ form }}</pre>
-        </b-card>
-      </div>
-      <!-- Input Form for Strapi No Auth End -->
     </b-container>
   </div>
 </template>

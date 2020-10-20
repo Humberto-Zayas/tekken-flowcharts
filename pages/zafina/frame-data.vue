@@ -13,7 +13,7 @@
 
       <br />
      
-      <b-form-group
+        <b-form-group
           label="Filter"
           label-cols-sm="3"
           label-align-sm="right"
@@ -21,34 +21,32 @@
           label-for="filterInput"
           class="mb-0"
         >
-          <b-input-group size="sm">
-            <b-form-input
-              v-model="filter"
-              type="search"
-              id="filterInput"
-              placeholder="Type to Search"
-            ></b-form-input>
-            <b-input-group-append>
-              <b-button :disabled="!filter" @click="filter = ''">Clear</b-button>
-            </b-input-group-append>
-          </b-input-group>
-        </b-form-group>
+            <b-input-group size="sm">
+              <b-form-input
+                v-model="filter"
+                type="search"
+                id="filterInput"
+                placeholder="Type to Search"
+              ></b-form-input>
+              <b-input-group-append>
+                <b-button :disabled="!filter" @click="filter = ''">Clear</b-button>
+              </b-input-group-append>
+            </b-input-group>
+          </b-form-group>
 
-        <b-form-group
-          label="Filter On"
-          label-cols-sm="3"
-          label-align-sm="right"
-          label-size="sm"
-          description="Leave all unchecked to filter on all data"
-          class="mb-0">
-          <b-form-checkbox-group class="mt-1">
-            <b-form-checkbox value="name">Punish</b-form-checkbox>
-            
-          </b-form-checkbox-group>
-        </b-form-group>
+      <b-form-group
+        label="Filter On"
+        label-cols-sm="3"
+        label-align-sm="right"
+        label-size="sm"
+        description="Leave all unchecked to filter on all data"
+        class="mb-0">
+        <b-form-checkbox-group class="mt-1">
+          <b-form-checkbox value="name">Punish</b-form-checkbox>
+          
+        </b-form-checkbox-group>
+      </b-form-group>
 
-        
-     
       <b-table
         sticky-header="60vh"
         bordered
@@ -58,9 +56,8 @@
         :filter="filter"
         :items="zafina"
         :fields="fieldsx"
-        no-border-collapse="noCollapse"
+        no-border-collapse
         responsive
-        
       >
 
         <template v-slot:cell(moveType)="row">
