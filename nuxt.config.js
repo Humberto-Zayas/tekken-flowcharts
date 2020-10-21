@@ -22,7 +22,7 @@ export default {
     ]
   },
   generate: {
-    fallback: '/',
+    fallback: true,
     routes: [
       '/',
       '/zafina',

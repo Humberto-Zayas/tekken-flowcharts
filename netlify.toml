@@ -1,0 +1,11 @@
+[build]
+  publish = "dist"
+  command = "npm run generate"
+[build.environment]
+  NODE_VERSION = "10"
+
+  
+ [[redirects]]
+  from = "/*"
+  to = "/not-found"
+  status = 200
