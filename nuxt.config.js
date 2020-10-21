@@ -24,7 +24,9 @@ export default {
   generate: {
     fallback: '/',
     routes: [
-      '/'
+      '/',
+      '/zafina',
+      '/zafina/frame-data'
     ]
   },
   target: 'static',
@@ -43,7 +45,7 @@ export default {
   /*
    ** Nuxt.js dev-modules
    */
-  devModules: [
+  buildModules: [
     // Doc: https://github.com/nuxt-community/eslint-module
     '@nuxtjs/eslint-module'
   ],
