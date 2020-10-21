@@ -21,6 +21,9 @@ export default {
       }
     ]
   },
+  generate: {
+    fallback: '/'
+  },
   target: 'static',
   /*
    ** Customize the progress-bar color
