@@ -22,7 +22,10 @@ export default {
     ]
   },
   generate: {
-    fallback: '/'
+    fallback: '/',
+    routes: [
+      '/'
+    ]
   },
   target: 'static',
   /*
