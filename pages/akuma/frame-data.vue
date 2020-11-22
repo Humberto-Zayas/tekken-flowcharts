@@ -10,12 +10,22 @@
           </h1>
         </b-col>
       </b-row>
+      <b-row>
+          current punish: {{punishable.value}}
+          <b-col>
+              <ul>
+                  <li v-if="move.blockFrame == filter" v-for="move in data">
+                      {{move.command}}
+                  </li>
+              </ul>
+          </b-col>
+      </b-row>
 
       <br />
      
         <b-form-group
-          label="Filter"
-          label-cols-sm="3"
+          label="Filter Moves"
+          label-cols-sm="1"
           label-align-sm="right"
           label-size="sm"
           label-for="filterInput"
@@ -31,24 +41,21 @@
            
               <b-form-select v-model="filter" :options="punishable"></b-form-select>
 
+                <template>
+                    <div>
+                        <b-form-group label="Filter by Move Type">
+                            <b-form-radio v-model="filter" v-for="(item, index) in moveType" :key="index" name="some-radios" :value="item">{{item}}</b-form-radio>
+                        
+                        </b-form-group>
+                    </div>
+                </template>
+
+
               <b-input-group-append>
                 <b-button :disabled="!filter" @click="filter = ''">Clear</b-button>
               </b-input-group-append>
             </b-input-group>
           </b-form-group>
-
-      <b-form-group
-        label="Filter On"
-        label-cols-sm="3"
-        label-align-sm="right"
-        label-size="sm"
-        description="Leave all unchecked to filter on all data"
-        class="mb-0">
-        <b-form-checkbox-group class="mt-1">
-          <b-form-checkbox value="name">Punish</b-form-checkbox>
-          
-        </b-form-checkbox-group>
-      </b-form-group>
 
       <b-table
         sticky-header="60vh"
@@ -103,6 +110,13 @@
             </span> -->
             {{ row.detailsShowing ? 'Hide' : 'Show'}} Details {{row.item.command}}
           </b-button>
+        </template>
+        <!-- End Collapse Toggle Feild -->
+
+        <!-- Block Frame field -->
+        <template v-slot:cell(blockFrame)="row">
+          <!-- {{row.item.blockFrame}} -->
+          <span>{{blockFrame(row.item.blockFrame)}}</span>
         </template>
         <!-- End Collapse Toggle Feild -->
 
@@ -237,7 +251,7 @@
 
 <script>
 import axios from 'axios'
-import zafina from "~/mixins/characterData/zafina.js";
+import zafina from "~/mixins/characterData/akuma.js";
 
 const apiUrl = process.env.API_URL || 'http://localhost:1339'
 export default {
@@ -265,12 +279,16 @@ export default {
         { value: '-17', text: '-17'},
         { value: '-18', text: '-18'},
       ],
+      moveType: [
+          'Power Crush',
+          'Homing'
+      ],
       show: true
     }
   },
   computed: {
     currentCharacter() {
-      return 'Zafina'
+      return 'Akuma'
     },
     cptItems(){
       return this.zafina.map((item)=>{
@@ -304,6 +322,16 @@ export default {
   methods: {
     pushMove(event) {
       this.$router.push('/' + event.target.value)
+    },
+    blockFrame(value) {
+        if (value > 0) {
+            return '+' + value
+        } else if(value < 0) {
+            return '-' + value
+        } else {
+            return value
+        }
+        
     },
     rowClass(item, type) {
         if (!item || type !== 'row') return

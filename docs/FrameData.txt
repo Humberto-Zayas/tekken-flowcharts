@@ -1,0 +1,28 @@
+#Frame Data
+
+- Process:
+    - Copy in Frame Data to Sheets
+
+- Stored in the OS Sheets app due abilit to stop equations from frame data notation
+- Use plain text strings or simple arrays to hold data
+- RegEX Replace Numbers
+    - Search Replace quoted numbers:
+        - "([0-9]+)" = $1
+    - SR quote negative numebrs: 
+        - "(-[0-9]+)" = $1
+    = 
+- #Special Columns
+    - MoveType: 
+        - Used to designate icons
+        - stored in simple array to list icon elements
+        - EX:
+            <span v-for="(item, index) in row.item.moveType">
+              <span v-if="item == 'homing'">
+                <i class="fas fa-arrows-alt-h"></i>
+              </span>
+            </span>
+            Improve:
+            - Create custom icon components with the name of the moveType so you can just v-for and insert name in the component
+    - Notes:
+        - Used on Row Collapse Component
+        - store in simple array to list out items

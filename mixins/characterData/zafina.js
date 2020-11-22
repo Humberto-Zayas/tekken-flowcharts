@@ -44,7 +44,7 @@ export default {
                   label: 'On Counter'
                 }
               ],
-            zafina: [
+            data: [
                 {
                   command: "In rage d/f+3+4",
                   hitLevel: "m (throw)",
@@ -109,7 +109,7 @@ export default {
                   hitFrame: 0,
                   counterHitFrame: 0,
                   notes: {
-                    punish: "10 F",
+                    punish: "",
                   }
                 },
                 {
@@ -919,21 +919,21 @@ export default {
                 {
                   command: "u/b, b",
                   hitLevel: "(Special)",
-                  damage: "NA",
+                  damage: "",
                   startUpFrame: 50,
-                  blockFrame: "NA",
-                  hitFrame: "NA",
-                  counterHitFrame: "NA",
+                  blockFrame: "",
+                  hitFrame: "",
+                  counterHitFrame: "",
                   notes: "Backflip"
                 },
                 {
                   command: "u/b, b+3+4",
                   hitLevel: "(MNT)",
-                  damage: "NA",
+                  damage: "",
                   startUpFrame: 56,
-                  blockFrame: "NA",
-                  hitFrame: "NA",
-                  counterHitFrame: "NA",
+                  blockFrame: "",
+                  hitFrame: "",
+                  counterHitFrame: "",
                   notes: "Backflip to Mantis Stance"
                 },
                 {
@@ -1249,21 +1249,21 @@ export default {
                 {
                   command: "d+1+2 or FC+d+1+2",
                   hitLevel: "(TRT)",
-                  damage: "NA",
-                  startUpFrame: "NA",
-                  blockFrame: "NA",
-                  hitFrame: "NA",
-                  counterHitFrame: "NA",
+                  damage: "",
+                  startUpFrame: "",
+                  blockFrame: "",
+                  hitFrame: "",
+                  counterHitFrame: "",
                   notes: "Enter Tarantula Stance"
                 },
                 {
                   command: "TRT d/b",
-                  hitLevel: "NA",
-                  damage: "NA",
+                  hitLevel: "",
+                  damage: "",
                   startUpFrame: 37,
-                  blockFrame: "NA",
-                  hitFrame: "NA",
-                  counterHitFrame: "NA",
+                  blockFrame: "",
+                  hitFrame: "",
+                  counterHitFrame: "",
                   notes: "Cancel Tarantula Stance"
                 },
                 {
@@ -1373,16 +1373,16 @@ export default {
                 {
                   command: "3+4 or FC+d+3",
                   hitLevel: "(SCR)",
-                  damage: "NA",
-                  startUpFrame: "NA",
-                  blockFrame: "NA",
-                  hitFrame: "NA",
-                  counterHitFrame: "NA",
+                  damage: "",
+                  startUpFrame: "",
+                  blockFrame: "",
+                  hitFrame: "",
+                  counterHitFrame: "",
                   notes: {
                       notes: 'Enter Scarecrow Stance',
                       applications: '',
-                      combos: 'NA',
-                      weak: 'NA',
+                      combos: '',
+                      weak: '',
                   }
                 },
                 {
@@ -1676,31 +1676,31 @@ export default {
                 {
                   command: "SCR d+3+4",
                   hitLevel: "(MNT)",
-                  damage: "NA",
+                  damage: "",
                   startUpFrame: 67,
-                  blockFrame: "NA",
-                  hitFrame: "NA",
-                  counterHitFrame: "NA",
+                  blockFrame: "",
+                  hitFrame: "",
+                  counterHitFrame: "",
                   notes: "Switch from Scarecrow Stance to Mantis Stance"
                 },
                 {
                   command: "d3+4 or FC+d+3+4",
                   hitLevel: "(MNT)",
-                  damage: "NA",
-                  startUpFrame: "NA",
-                  blockFrame: "NA",
-                  hitFrame: "NA",
-                  counterHitFrame: "NA",
+                  damage: "",
+                  startUpFrame: "",
+                  blockFrame: "",
+                  hitFrame: "",
+                  counterHitFrame: "",
                   notes: "Enter Mantis Stance"
                 },
                 {
                   command: "MNT, d/b",
-                  hitLevel: "NA",
-                  damage: "NA",
+                  hitLevel: "",
+                  damage: "",
                   startUpFrame: 30,
-                  blockFrame: "NA",
-                  hitFrame: "NA",
-                  counterHitFrame: "NA",
+                  blockFrame: "",
+                  hitFrame: "",
+                  counterHitFrame: "",
                   notes: "Blocks lows"
                 },
                 {
@@ -1856,9 +1856,9 @@ export default {
                   hitLevel: "(MNT) BT",
                   damage: "",
                   startUpFrame: 25,
-                  blockFrame: "NA",
-                  hitFrame: "NA",
-                  counterHitFrame: "NA",
+                  blockFrame: "",
+                  hitFrame: "",
+                  counterHitFrame: "",
                   notes: "Turn around position in Mantis Stance "
                 },
                 {

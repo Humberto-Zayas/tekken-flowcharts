@@ -7,7 +7,7 @@
       </b-col>
     </b-row>
 
-    <!-- <b-row align-v="start">
+    <b-row align-v="start">
       <b-col>
         <b-list-group>
           <b-list-group-item
@@ -23,7 +23,7 @@
           </b-list-group-item>
         </b-list-group>
       </b-col>
-    </b-row> -->
+    </b-row>
   </b-container>
 </template>
 
