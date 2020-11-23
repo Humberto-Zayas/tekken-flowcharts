@@ -1,13 +1,15 @@
 <template>
   <div>
-    
     <b-container>
-        <h1>
-            {{ currentCharacter }}
-          </h1>
-        <frame-data-table :data="data" :fields="fieldsx" :filter="filter"></frame-data-table>
+      <h1>
+        {{ currentCharacter }}
+      </h1>
+      <frame-data-table
+        :data="data"
+        :fields="fieldsx"
+        :filter="filter"
+      ></frame-data-table>
     </b-container>
-    
   </div>
 </template>
 
@@ -70,24 +72,23 @@
 
 <script>
 import axios from 'axios'
-import akuma from "~/mixins/characterData/akuma.js";
-import FrameDataTable from "@/components/FrameDataTable.vue"
-
+import akuma from '~/mixins/characterData/akuma.js'
+import FrameDataTable from '@/components/FrameDataTable.vue'
 
 const apiUrl = process.env.API_URL || 'http://localhost:1339'
 export default {
-    components: {
-        FrameDataTable
-    },
+  components: {
+    FrameDataTable,
+  },
   data() {
     return {
       filter: null,
       selected: [],
       form: {
         name: '',
-        content: ''
+        content: '',
       },
-      show: true
+      show: true,
     }
   },
   computed: {
@@ -101,14 +102,14 @@ export default {
       // array item.name matches the slug
       // push all array item to matching charts
 
-      return flowcharts.filter(function(chart) {
+      return flowcharts.filter(function (chart) {
         return chart.Name.toLowerCase().replace(/ /g, '-') === this.id
       })
 
       // return flowcharts[0].Name.toLowerCase().replace(/ /g, '-')
       // return x
       // return flowcharts
-    }
+    },
   },
   mixins: [akuma],
   methods: {
@@ -116,18 +117,17 @@ export default {
       this.$router.push('/' + event.target.value)
     },
     blockFrame(value) {
-        if (value > 0) {
-            return '+' + value
-        } else if(value < 0) {
-            return '-' + value
-        } else {
-            return value
-        }
-        
+      if (value > 0) {
+        return '+' + value
+      } else if (value < 0) {
+        return '-' + value
+      } else {
+        return value
+      }
     },
     rowClass(item, type) {
-        if (!item || type !== 'row') return
-        if (item.status === 'awesome') return 'table-success'
+      if (!item || type !== 'row') return
+      if (item.status === 'awesome') return 'table-success'
     },
     onSubmit(evt) {
       evt.preventDefault()
@@ -151,7 +151,7 @@ export default {
       axios
         .post(`${apiUrl}/flowcharts/`, {
           Name: this.form.name,
-          Content: this.form.content
+          Content: this.form.content,
         })
         .then((response) => {
           // Handle success.
@@ -165,7 +165,7 @@ export default {
           alert('Error: ', error)
           // console.log('An error occurred:', error)
         })
-    }
-  }
+    },
+  },
 }
 </script>

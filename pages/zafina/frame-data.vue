@@ -1,147 +1,17 @@
 <template>
   <div>
-    
-    <b-container class="bv-example-row">
-      <br />
-      <b-row>
-        <b-col>
-          <h1>
-            {{ currentCharacter }}
-          </h1>
-        </b-col>
-      </b-row>
-
-      <br />
-     
-        <b-form-group
-          label="Filter"
-          label-cols-sm="3"
-          label-align-sm="right"
-          label-size="sm"
-          label-for="filterInput"
-          class="mb-0"
-        >
-            <b-input-group size="sm">
-              <b-form-input
-                v-model="filter"
-                type="search"
-                id="filterInput"
-                placeholder="Type to Search"
-              ></b-form-input>
-           
-              <b-form-select v-model="filter" :options="punishable"></b-form-select>
-
-              <b-input-group-append>
-                <b-button :disabled="!filter" @click="filter = ''">Clear</b-button>
-              </b-input-group-append>
-            </b-input-group>
-          </b-form-group>
-
-      <b-form-group
-        label="Filter On"
-        label-cols-sm="3"
-        label-align-sm="right"
-        label-size="sm"
-        description="Leave all unchecked to filter on all data"
-        class="mb-0">
-        <b-form-checkbox-group class="mt-1">
-          <b-form-checkbox value="name">Punish</b-form-checkbox>
-          
-        </b-form-checkbox-group>
-      </b-form-group>
-
-      <b-table
-        sticky-header="60vh"
-        bordered
-        striped
-        hover
-        :tbody-tr-class="rowClass"
-        :filter="filter"
-        :items="data"
+    <b-container>
+      <h1>
+        {{ currentCharacter }}
+      </h1>
+      <frame-data-table
+        :data="data"
         :fields="fieldsx"
-        no-border-collapse
-        responsive
-      >
+        :filter="filter"
+      ></frame-data-table>
+    </b-container>
 
-        <template v-slot:cell(moveType)="row">
-            <span v-for="(item, index) in row.item.moveType">
-              <span v-if="item == 'homing'">
-                <i class="fas fa-arrows-alt-h"></i>
-              </span>
-              <span v-if="item == 'tail spin'">
-                <i class="fas fa-circle-notch"></i>
-              </span>
-              <span v-if="item == 'power crush'">
-                <i class="fas fa-fist-raised"></i>
-              </span>
-              <span v-if="item == 'wall bounce'">
-                <i class="fas fa-angle-double-left"></i>
-              </span>
-            </span>
-        </template>
-
-        <!-- <template v-slot:row-details="row">
-          <b-card>
-            <b-row class="mb-2">
-              <b-col sm="3" class="text-sm-right"><b>Notes:</b></b-col>
-              <b-col>{{ row.item.notes }}</b-col>
-            </b-row>
-
-
-            <b-button size="sm" @click="row.toggleDetails">Hide Details</b-button>
-          </b-card>
-        </template> -->
-
-        <!-- Collapse Toggle Feild -->
-        <template v-slot:cell(command)="row">
-          <b-button size="sm" @click="row.toggleDetails" class="mr-2">
-            <!-- <span v-if="row.item.notes.properties.homing == 'homing'">
-              <i class="fas fa-circle-notch"></i>
-            </span>
-            <span v-if="row.item.notes.properties.tailSpin == 'tail spin'">
-              <i class="fas fa-circle"></i>
-            </span> -->
-            {{ row.detailsShowing ? 'Hide' : 'Show'}} Details {{row.item.command}}
-          </b-button>
-        </template>
-        <!-- End Collapse Toggle Feild -->
-
-        <!-- Notes Feild -->
-        <template v-slot:row-details="row">
-          <b-card>
-            <b-row class="mb-2">
-              <b-col sm="3" class="text-sm-right"><b>Notes:</b></b-col>
-              <b-col>{{ row.item.notes }}</b-col>
-            </b-row>
-
-
-            <b-button size="sm" @click="row.toggleDetails">Hide Details</b-button>
-          </b-card>
-        </template>
-        <!-- End Notes Feild -->
-        
-
-        <!-- <template v-slot:cell(show_details)="row">
-          <b-button size="sm" @click="row.toggleDetails" class="mr-2">
-            {{ row.detailsShowing ? 'Hide' : 'Show'}} Details
-          </b-button>
-
-          
-        </template>
-
-        <template v-slot:row-details="row">
-          <b-card>
-            <b-row class="mb-2">
-              <b-col sm="3" class="text-sm-right"><b>Notes:</b></b-col>
-              <b-col>{{ row.item.notes }}</b-col>
-            </b-row>
-
-
-            <b-button size="sm" @click="row.toggleDetails">Hide Details</b-button>
-          </b-card>
-        </template> -->
-      </b-table>
-
+    <b-container class="bv-example-row">
       <!-- Input Form for Strapi No Auth -->
       <div>
         <b-form v-if="show" @submit="addFlowChart" @reset="onReset">
@@ -237,10 +107,14 @@
 
 <script>
 import axios from 'axios'
-import zafina from "~/mixins/characterData/zafina.js";
+import zafina from '~/mixins/characterData/zafina.js'
+import FrameDataTable from '@/components/FrameDataTable.vue'
 
 const apiUrl = process.env.API_URL || 'http://localhost:1339'
 export default {
+  components: {
+    FrameDataTable,
+  },
   data() {
     return {
       filter: null,
@@ -248,7 +122,7 @@ export default {
       selected: [],
       form: {
         name: '',
-        content: ''
+        content: '',
 
         // food: null,
         // checked: []
@@ -259,30 +133,29 @@ export default {
         { value: '-11', text: '-11' },
         { value: '-12', text: '-12' },
         { value: '-13', text: '-13' },
-        { value: '-14', text: '-14'},
-        { value: '-15', text: '-15'},
-        { value: '-16', text: '-16'},
-        { value: '-17', text: '-17'},
-        { value: '-18', text: '-18'},
+        { value: '-14', text: '-14' },
+        { value: '-15', text: '-15' },
+        { value: '-16', text: '-16' },
+        { value: '-17', text: '-17' },
+        { value: '-18', text: '-18' },
       ],
-      show: true
+      show: true,
     }
   },
   computed: {
     currentCharacter() {
       return 'Zafina'
     },
-    cptItems(){
-      return this.zafina.map((item)=>{
-              let tmp=item;
-              // item.blockFrame>0?tmp.variant='danger':tmp.variant='success';
-              // return tmp;
-              if (this.filter != '') {
-                tmp.variant = 'danger'
-                return tmp
-              }
-
-      })  
+    cptItems() {
+      return this.zafina.map((item) => {
+        let tmp = item
+        // item.blockFrame>0?tmp.variant='danger':tmp.variant='success';
+        // return tmp;
+        if (this.filter != '') {
+          tmp.variant = 'danger'
+          return tmp
+        }
+      })
     },
     matchingFlowCharts() {
       const flowcharts = this.flowcharts
@@ -291,14 +164,14 @@ export default {
       // array item.name matches the slug
       // push all array item to matching charts
 
-      return flowcharts.filter(function(chart) {
+      return flowcharts.filter(function (chart) {
         return chart.Name.toLowerCase().replace(/ /g, '-') === this.id
       })
 
       // return flowcharts[0].Name.toLowerCase().replace(/ /g, '-')
       // return x
       // return flowcharts
-    }
+    },
   },
   mixins: [zafina],
   methods: {
@@ -306,14 +179,14 @@ export default {
       this.$router.push('/' + event.target.value)
     },
     rowClass(item, type) {
-        if (!item || type !== 'row') return
-        if (item.status === 'awesome') return 'table-success'
+      if (!item || type !== 'row') return
+      if (item.status === 'awesome') return 'table-success'
     },
     crouchStatus(val) {
-      return parseInt(val) + "s"
+      return parseInt(val) + 's'
     },
     filterTable(row, filter) {
-        this.filter = "punish"
+      this.filter = 'punish'
     },
     onSubmit(evt) {
       evt.preventDefault()
@@ -337,7 +210,7 @@ export default {
       axios
         .post(`${apiUrl}/flowcharts/`, {
           Name: this.form.name,
-          Content: this.form.content
+          Content: this.form.content,
         })
         .then((response) => {
           // Handle success.
@@ -351,7 +224,7 @@ export default {
           alert('Error: ', error)
           // console.log('An error occurred:', error)
         })
-    }
-  }
+    },
+  },
 }
 </script>

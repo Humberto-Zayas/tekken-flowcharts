@@ -1,0 +1,4 @@
+- Move table to FrameDataTable Component √
+- Move FrameDataTable Component into Zafina's Page
+- Make Character Pages Dynamic? 
+- Create Custom Icon Component for Move Types

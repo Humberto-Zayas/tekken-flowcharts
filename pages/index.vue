@@ -15,11 +15,10 @@
             :key="i"
             class="d-flex justify-content-between align-items-center"
           >
-            <nuxt-link :to="character.toLowerCase().replace(/ /g, '-')">
-              {{ character }}</nuxt-link
-            >
+            <nuxt-link :to="character.name.toLowerCase().replace(' ', '-')" v-if="character.available">{{character.name}}</nuxt-link>
+            <span disabled v-else>{{character}} <em>Coming Soon</em></span>
 
-            <b-badge variant="primary" pill>14</b-badge>
+            <!-- <b-badge variant="primary" pill>14</b-badge> -->
           </b-list-group-item>
         </b-list-group>
       </b-col>
@@ -32,7 +31,10 @@ export default {
   data() {
     return {
       characters: [
-        'Akuma',
+        { 
+          name: 'Akuma',
+          available: true
+        },
         'Alisa Bosconovitch',
         'Anna Williams',
         'Armor King',
@@ -40,7 +42,6 @@ export default {
         'Bob',
         'Bryan Fury',
         'Claudio',
-        'Craig Marduk',
         'Devil Jin',
         'Dragunov',
         'Eddy Gordo',
@@ -67,6 +68,7 @@ export default {
         'Lei Wulong',
         'Ling Xiaoyu',
         'Lucky Chloe',
+        'Marduk',
         'Marshall Law',
         'Master Raven',
         'Miguel',
@@ -78,18 +80,11 @@ export default {
         'Shaheen',
         'Steve Fox',
         'Yoshimitsu',
-        'Zafina'
-      ],
-      xcharacters: [
         {
-          id: 'Asuka',
-          moves: ['1, 2, 3', '1, 2, 3 (Hold)', '1,2,4']
-        },
-        {
-          id: 'Lucky Chloe',
-          moves: ['1, 2, 1', '1,2,2', '1,2,1+2', '2, 2', '2, 3']
+          name: 'Zafina',
+          available: true
         }
-      ]
+      ],
     }
   },
   methods: {

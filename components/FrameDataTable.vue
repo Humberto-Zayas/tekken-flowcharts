@@ -1,10 +1,10 @@
 <template>
   <div>
-    <b-row>
+    <b-row v-if="filter != null">
       current punish: {{ filter }}
       <b-col>
-        <ul>
-          <li v-if="move.blockFrame == filter" v-for="move in data">
+        <ul >
+          <li v-if="filter.includes(move.blockFrame)" v-for="move in data">
             {{ move.command }}
           </li>
         </ul>
@@ -60,7 +60,7 @@
       :tbody-tr-class="rowClass"
       :filter="filter"
       :items="data"
-      :fields="fieldsx"
+      :fields="fields"
       no-border-collapse
       responsive
     >
