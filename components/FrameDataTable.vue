@@ -65,8 +65,9 @@
       responsive
     >
       <template v-slot:cell(moveType)="row">
-        <span v-for="(item, index) in row.item.moveType">
-          <span v-if="item == 'homing'">
+        <ul class="moveType-list" v-for="(item, index) in row.item.moveType" :key="index">
+          <li>{{item}}</li>
+          <!-- <span v-if="item == 'homing'">
             <i class="fas fa-arrows-alt-h"></i>
           </span>
           <span v-if="item == 'tail spin'">
@@ -77,8 +78,9 @@
           </span>
           <span v-if="item == 'wall bounce'">
             <i class="fas fa-angle-double-left"></i>
-          </span>
-        </span>
+          </span> -->
+          
+        </ul>
       </template>
 
       <!-- <template v-slot:row-details="row">
